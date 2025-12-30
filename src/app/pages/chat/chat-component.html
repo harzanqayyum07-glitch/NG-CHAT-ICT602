@@ -1,0 +1,66 @@
+<div class="chat-container">
+  <!-- Chat Header -->
+  <div class="chat-header">
+    <h3>Supa Chat</h3>
+    <div class="header-actions">
+      <p>Welcome, {{ this.auth.currentUser()?.email }}</p>
+      <button (click)="logOut()" class="btn-logout">
+        <span>Log Out</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Chat Messages -->
+  <div class="chat-messages" #chatMessages>
+    @for (msg of this.chats(); track msg.id) {
+    <div
+      class="message-wrapper"
+      [ngClass]="{ 'sent-wrapper': msg.sender === this.auth.currentUser()?.id, 'received-wrapper': msg.sender !== this.auth.currentUser()?.id }"
+    >
+      <div
+        class="message"
+        [ngClass]="{ sent: msg.sender === this.auth.currentUser()?.id, received: msg.sender !== this.auth.currentUser()?.id }"
+      >
+        <div class="message-header">
+          <span class="username">{{ msg.users?.full_name }}</span>
+          <img [src]="msg.users?.avatar_url" class="avatar" alt="Avatar" />
+        </div>
+        <p class="message-text">{{ msg.text }}</p>
+        <div class="message-footer">
+          <span class="timestamp">{{ msg.created_at | date:'h:mm a' }}</span>
+          @if(msg.sender === this.auth.currentUser()?.id){
+            <div class="dropdown">
+              <span class="delete-icon" (click)="openDropDown(msg)" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                &#x2715;
+              </span>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+    } @empty {
+      <div class="no-messages">
+        <p>No messages yet. Start the conversation!</p>
+      </div>
+    }
+  </div>
+
+  <!-- Message Input Form -->
+  <div class="chat-form-container">
+    <form class="chat-form" [formGroup]="chatForm" (ngSubmit)="onSubmit()">
+      <input
+        formControlName="chat_message"
+        type="text"
+        class="form-control"
+        placeholder="Type your message..."
+        autocomplete="off"
+      />
+      <button type="submit" [disabled]="!chatForm.valid" class="btn btn-primary">
+        Send
+      </button>
+    </form>
+  </div>
+</div>
+
+<!-- modal -->
+<app-modal />
