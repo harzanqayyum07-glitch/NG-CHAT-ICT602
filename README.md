@@ -1,3 +1,18 @@
+NAME: HARZAN QAYYUM BIN MAIZAN
+STUDENT ID: 2024690002
+GROUP: CS2703A
+LECTURER NAME: EN. MUHAMMAD ATIF RAMLAN
+
+## Project Background
+This project is a realtime chat application using Angular 20 and Supabase.
+It demonstrates how to integrate frontend and backend for authentication, database
+management, and realtime communication.
+
+## Discussion
+The project helped me understand Google authentication, Supabase database setup,
+and enabling realtime chat. It improved my skills in Angular, Supabase, and version
+control with GitHub.
+
 # Chat2
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.0.1.
